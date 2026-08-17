@@ -30,9 +30,9 @@ initialCards.forEach(function (card) {
 
 // Selección de elementos principales
 
-const editarPerfil = document.querySelector(".profile__edit-button");
+const buttonProfileEdit = document.querySelector(".profile__edit-button");
 const modalPopup = document.querySelector("#edit-popup");
-const cerrarVentana = modalPopup.querySelector(".popup__close");
+const buttonModalClose = modalPopup.querySelector(".popup__close");
 
 function openModal(modal) {
   modal.classList.add("popup_is-opened");
@@ -41,7 +41,7 @@ function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
 }
 
-cerrarVentana.addEventListener("click", () => closeModal(modalPopup));
+buttonModalClose.addEventListener("click", () => closeModal(modalPopup));
 
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -59,9 +59,9 @@ function handleOpenEditModal() {
   fillProfileForm();
   openModal(modalPopup);
 }
-editarPerfil.addEventListener("click", handleOpenEditModal);
+buttonProfileEdit.addEventListener("click", handleOpenEditModal);
 
-let formElement = document.querySelector("#edit-profile-form");
+const formElement = document.querySelector("#edit-profile-form");
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
