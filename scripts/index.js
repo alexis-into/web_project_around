@@ -1,3 +1,11 @@
+import { setEventListeners, resetValidation } from "./validate.js";
+
+const settings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+};
+
 const initialCards = [
   {
     name: "Valle de Yosemite",
@@ -41,10 +49,24 @@ function openModal(modal) {
 }
 function closeModal(modal) {
   modal.classList.remove("popup_is-opened");
+  const formElement = modal.querySelector(settings.formSelector);
+  if (formElement) {
+    resetValidation(formElement, settings);
+  }
 }
+
+function handleOverlayClick(evt) {
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.currentTarget);
+  }
+}
+
+document.addEventListener("keydown", handleEscClose);
 
 buttonModalClose.addEventListener("click", () => closeModal(modalPopup));
 imagePopupClose.addEventListener("click", () => closeModal(imagePopup));
+modalPopup.addEventListener("click", handleOverlayClick);
+imagePopup.addEventListener("click", handleOverlayClick);
 
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -60,8 +82,10 @@ function fillProfileForm() {
 
 function handleOpenEditModal() {
   fillProfileForm();
+  resetValidation(formElement, settings);
   openModal(modalPopup);
 }
+
 function handleOpenImage(evt) {
   popupImage.src = evt.target.src;
   popupImage.alt = evt.target.alt;
@@ -72,6 +96,7 @@ function handleOpenImage(evt) {
 buttonProfileEdit.addEventListener("click", handleOpenEditModal);
 
 const formElement = document.querySelector("#edit-profile-form");
+setEventListeners(formElement, settings);
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
@@ -127,13 +152,18 @@ const modalPopupCard = document.querySelector("#new-card-popup");
 const modalCardClose = modalPopupCard.querySelector(".popup__close");
 
 modalCardClose.addEventListener("click", () => closeModal(modalPopupCard));
-buttonAddCard.addEventListener("click", () => openModal(modalPopupCard));
-
+buttonAddCard.addEventListener("click", () => {
+  resetValidation(submitCard, settings);
+  openModal(modalPopupCard);
+});
+modalPopupCard.addEventListener("click", handleOverlayClick);
 // Agregar información a la nueva tarjeta
 
 const cardName = document.querySelector(".popup__input_type_card-name");
 const cardLink = document.querySelector(".popup__input_type_url");
 const submitCard = document.querySelector("#new-card-form");
+
+setEventListeners(submitCard, settings);
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
@@ -144,3 +174,10 @@ function handleCardFormSubmit(evt) {
 }
 
 submitCard.addEventListener("submit", handleCardFormSubmit);
+
+function handleEscClose(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".popup_is-opened");
+    closeModal(openedModal);
+  }
+}
