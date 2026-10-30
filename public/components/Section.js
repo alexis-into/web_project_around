@@ -11,8 +11,11 @@ export default class Section {
         }
         this.container = container;
     }
-    renderItems() {
-        this.items.forEach((item) => this.renderer(item));
+    // Recibe los elementos a renderizar; si no se pasan, usa los del constructor.
+    // Se recorren al revés porque addItem() inserta cada elemento al principio,
+    // así la lista conserva el orden original.
+    renderItems(items = this.items) {
+        [...items].reverse().forEach((item) => this.renderer(item));
     }
     addItem(element) {
         this.container.prepend(element);

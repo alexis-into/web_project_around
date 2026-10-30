@@ -1,4 +1,4 @@
-import type { FormConfig } from "./utils/constants.js";
+import type { FormConfig } from "../utils/constants.js";
 
 export default class FormValidator {
   private config: FormConfig;

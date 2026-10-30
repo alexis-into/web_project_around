@@ -1,5 +1,5 @@
 import Popup from "./Popup.js";
-import type { CardData } from "./Card.js";
+import type { CardData } from "../utils/types.js";
 
 export default class PopupWithImage extends Popup {
   private imageElement: HTMLImageElement;

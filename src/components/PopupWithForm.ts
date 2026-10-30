@@ -1,11 +1,13 @@
 import Popup from "./Popup.js";
 
 export type FormValues = Record<string, string>;
-export type FormSubmitHandler = (values: FormValues) => void;
+export type FormSubmitHandler = (values: FormValues) => void | Promise<void>;
 
 export default class PopupWithForm extends Popup {
   private formElement: HTMLFormElement;
   private inputList: HTMLInputElement[];
+  private submitButton: HTMLButtonElement;
+  private submitButtonText: string;
   private handleFormSubmit: FormSubmitHandler;
 
   constructor(popupSelector: string, handleFormSubmit: FormSubmitHandler) {
@@ -14,11 +16,16 @@ export default class PopupWithForm extends Popup {
 
     const formElement =
       this.popupElement.querySelector<HTMLFormElement>(".popup__form");
-    if (!formElement) {
-      throw new Error(`No se encontró el formulario en ${popupSelector}`);
+    const submitButton =
+      formElement?.querySelector<HTMLButtonElement>(".popup__button");
+
+    if (!formElement || !submitButton) {
+      throw new Error(`Faltan elementos del formulario en ${popupSelector}`);
     }
 
     this.formElement = formElement;
+    this.submitButton = submitButton;
+    this.submitButtonText = submitButton.textContent ?? "";
     this.inputList = Array.from(
       formElement.querySelectorAll<HTMLInputElement>(".popup__input"),
     );
@@ -36,6 +43,12 @@ export default class PopupWithForm extends Popup {
     this.inputList.forEach((input) => {
       input.value = values[input.name] ?? "";
     });
+  }
+
+  public renderLoading(isLoading: boolean, loadingText = "Guardando..."): void {
+    this.submitButton.textContent = isLoading
+      ? loadingText
+      : this.submitButtonText;
   }
 
   public override setEventListeners(): void {

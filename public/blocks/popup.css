@@ -178,3 +178,11 @@
 .popup__error_visible {
   opacity: 1;
 }
+
+.popup__content_size_small {
+  min-height: auto;
+}
+
+.popup__button_type_confirm {
+  margin-top: 11px;
+}

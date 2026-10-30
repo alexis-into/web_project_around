@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="ie=edge" http-equiv="X-UA-Compatible" />
     <title>Around The U.S.</title>
+    <link rel="icon" href="data:," />
     <link href="./pages/index.css" rel="stylesheet" />
   </head>
   <body class="page">
@@ -18,7 +19,17 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__image" src="./images/avatar.jpg" alt="Avatar" />
+          <button
+            aria-label="Cambiar foto de perfil"
+            class="profile__avatar-button"
+            type="button"
+          >
+            <img
+              class="profile__image"
+              src="./images/avatar.jpg"
+              alt="Foto de perfil"
+            />
+          </button>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -82,7 +93,7 @@
             <input
               id="description"
               class="popup__input popup__input_type_description"
-              name="description"
+              name="about"
               placeholder="Acerca de mí"
               type="text"
               required
@@ -106,7 +117,7 @@
             <input
               id="place-name"
               class="popup__input popup__input_type_card-name"
-              name="place-name"
+              name="name"
               placeholder="Título"
               required
               type="text"
@@ -124,6 +135,46 @@
             />
             <span class="popup__error" id="link-error"></span>
             <button class="button popup__button" type="submit">Crear</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup" id="avatar-popup">
+        <div class="popup__content popup__content_size_small">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">Cambiar foto de perfil</h3>
+          <form class="popup__form" id="edit-avatar-form">
+            <input
+              id="avatar"
+              class="popup__input popup__input_type_avatar"
+              name="avatar"
+              placeholder="Enlace a la imagen"
+              required
+              type="url"
+            />
+            <span class="popup__error" id="avatar-error"></span>
+            <button class="button popup__button" type="submit">Guardar</button>
+          </form>
+        </div>
+      </div>
+      <div class="popup" id="delete-popup">
+        <div class="popup__content popup__content_size_small">
+          <button
+            aria-label="Cerrar ventana emergente"
+            class="popup__close"
+            type="button"
+          ></button>
+          <h3 class="popup__title">¿Estás seguro/a?</h3>
+          <form class="popup__form" id="delete-card-form">
+            <button
+              class="button popup__button popup__button_type_confirm"
+              type="submit"
+            >
+              Sí
+            </button>
           </form>
         </div>
       </div>
